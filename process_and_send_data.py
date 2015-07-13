@@ -16,8 +16,8 @@ import time
 
 
 api_key = ''
-data_dir = 'data/'
-processed_data_dir = 'data/processed_files/'
+data_dir = '/home/pi/Desktop/hamster_tracker/data/'
+processed_data_dir = '/home/pi/Desktop/hamster_tracker/data/processed_files/'
 WHEEL_CIRCUMFERENCE_INCHES = 18.0
 INCHES_PER_FOOT = 12.0
 FEET_PER_MILE = 5280.0
@@ -29,7 +29,7 @@ FEET_PER_MILE = 5280.0
 # TODO calculate rotations per second for each sprint
 # omega = rotations / (end_time - start_time)
 
-for raw_data_file in os.listdir('data'):
+for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
     if raw_data_file.startswith('raw_'):
         sprint_start_time = None
         with open(data_dir + raw_data_file) as f:
@@ -64,7 +64,6 @@ for raw_data_file in os.listdir('data'):
 
         except Exception as e:
             print e
-
-
+    
 
 
