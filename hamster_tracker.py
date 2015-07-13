@@ -1,8 +1,18 @@
 #!/usr/bin/env python
 
+"""
+Listens to sensor input on PIN 18 and logs
+the current time upon signal.
+
+Michelle Leonhart
+michelle@tinwhiskers.net
+"""
+
+
 import RPi.GPIO as GPIO
 from datetime import datetime, timedelta
 import time
+
 
 led_pin = 7
 hall_effect_sensor_pin = 18
@@ -26,7 +36,7 @@ current_time_str = time.strftime("%Y%m%d-%H%M%S")
 
 while True:
     try:
-	if is_sprint == True and datetime.now() - time_of_last_recording > timedelta(seconds=5):
+        if is_sprint == True and datetime.now() - time_of_last_recording > timedelta(seconds=5):
             print("Sprint Ending. Closing file: %s" % raw_data_file.name)
             is_sprint = False
         
@@ -34,16 +44,16 @@ while True:
         is_hall_effect_sensor_on = GPIO.input(hall_effect_sensor_pin)
         if is_hall_effect_sensor_on != previous_state:
             if is_hall_effect_sensor_on == 0:
-		if is_sprint == False:
+                if not is_sprint:
                     is_sprint = True
                     current_time_str = time.strftime("%Y%m%d-%H%M%S")
                     raw_data_file = open(data_dir + 'raw_data_' + current_time_str, 'wb')
                     print("Sprint Starting. Opening file: %s" % raw_data_file.name)
 
-		print(time.strftime("%Y-%m-%d %H:%M:%S"))
-		raw_data_file.write(time.strftime("%Y-%m-%d %H:%M:%S"))
-		raw_data_file.write("\n")
-                time_of_last_recording = datetime.now()
+        print(time.strftime("%Y-%m-%d %H:%M:%S"))
+        raw_data_file.write(time.strftime("%Y-%m-%d %H:%M:%S"))
+        raw_data_file.write("\n")
+        time_of_last_recording = datetime.now()
 
         previous_state = is_hall_effect_sensor_on
 
