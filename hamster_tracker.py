@@ -17,7 +17,6 @@ import os
 led_pin = 7
 hall_effect_sensor_pin = 18
 
-is_led_on = False
 is_hall_effect_sensor_on = False
 is_sprint = False
 
@@ -28,8 +27,6 @@ GPIO.setmode(GPIO.BOARD)
 
 GPIO.setup(led_pin, GPIO.OUT)                # set LED pin to OUTPUT
 GPIO.setup(hall_effect_sensor_pin, GPIO.IN)  # set HALL pin to INPUT
-
-GPIO.output(led_pin, is_led_on)
 
 previous_state = 1
 time_of_last_recording = datetime.now()
@@ -57,11 +54,12 @@ while True:
                 print(time.strftime("%Y-%m-%d %H:%M:%S"))
                 raw_data_file.write(time.strftime("%Y-%m-%d %H:%M:%S"))
                 raw_data_file.write("\n")
+                GPIO.output(led_pin, True)
                 time_of_last_recording = datetime.now()
 
             previous_state = is_hall_effect_sensor_on
 
-            GPIO.output(led_pin, is_led_on)
+            GPIO.output(led_pin, False)
 
     except KeyboardInterrupt:
         GPIO.output(led_pin, False)

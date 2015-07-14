@@ -60,7 +60,7 @@ for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
             print response.status, response.reason
             conn.close()
             os.rename(data_dir + raw_data_file, processed_data_dir + raw_data_file)
-            time.sleep(20)
+            time.sleep(15)
 
         except Exception as e:
             print e
