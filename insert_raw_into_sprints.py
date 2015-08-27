@@ -52,12 +52,15 @@ for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
             #       "VALUES ({}, {}, {})".format(sprint_start_time, sprint_end_time, rotations)
 
             # curs.execute("INSERT INTO sprints (start_datetime, end_datetime, rotations) VALUES ({}, {}, {})".format())
-            conn.close()
+            conn.commit()
             # os.rename(data_dir + raw_data_file, processed_data_dir + raw_data_file)
             time.sleep(1)
 
         except Exception as e:
             print e
+            conn.close()
+
+conn.close()
 
 
 
