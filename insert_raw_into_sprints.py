@@ -48,7 +48,7 @@ for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
             curs.execute("SELECT * FROM sprints WHERE start_datetime = '{}'".format(sprint_start_time))
             data = curs.fetchall()
 
-            print data
+            print type(data)
             if not data:
                 print "INSERT INTO sprints (start_datetime, end_datetime, rotations) " \
                       "VALUES ({}, {}, {})".format(sprint_start_time, sprint_end_time, rotations)
