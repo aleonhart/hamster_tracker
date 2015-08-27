@@ -23,8 +23,8 @@ WHEEL_CIRCUMFERENCE_INCHES = 18.0
 INCHES_PER_FOOT = 12.0
 FEET_PER_MILE = 5280.0
 
-# conn=sqlite3.connect('hamstrometer.db')
-# curs=conn.cursor()
+conn=sqlite3.connect('hamstrometer.db')
+curs=conn.cursor()
 
 for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
     if raw_data_file.startswith('raw_'):
@@ -43,9 +43,16 @@ for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
         human_miles = human_feet / FEET_PER_MILE
 
         try:
+            print "Verify that data does not already exist in table..."
+            print "SELECT * FROM sprints WHERE state_datetime = {}".format(sprint_start_time)
+            rows = curs.execute("SELECT * FROM sprints WHERE state_datetime = {}".format(sprint_start_time))
+            if rows:
+                print rows
+            # print "INSERT INTO sprints (start_datetime, end_datetime, rotations) " \
+            #       "VALUES ({}, {}, {})".format(sprint_start_time, sprint_end_time, rotations)
+
             # curs.execute("INSERT INTO sprints (start_datetime, end_datetime, rotations) VALUES ({}, {}, {})".format())
-            # conn.close()
-            print "INSERT INTO sprints (start_datetime, end_datetime, rotations) VALUES ({}, {}, {})".format(sprint_start_time, sprint_end_time, rotations)
+            conn.close()
             # os.rename(data_dir + raw_data_file, processed_data_dir + raw_data_file)
             time.sleep(1)
 
