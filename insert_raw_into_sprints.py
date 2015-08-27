@@ -53,7 +53,9 @@ for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
                 print "INSERT INTO sprints VALUES ('{}', '{}', {});".format(sprint_start_time, sprint_end_time, rotations)
 
                 print "execute"
-                curs.execute("INSERT INTO sprints VALUES ('{}', '{}', {});".format())
+                curs.execute('INSERT INTO sprints(start_datetime, end_datetime, rotations) VALUES(?,?,?)',
+                             (sprint_start_time, sprint_end_time, rotations))
+
                 print "commit"
                 conn.commit()
             # os.rename(data_dir + raw_data_file, processed_data_dir + raw_data_file)
