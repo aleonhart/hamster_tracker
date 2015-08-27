@@ -45,9 +45,10 @@ for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
         try:
             print "Verify that data does not already exist in table..."
             print "SELECT * FROM sprints WHERE start_datetime = '{}'".format(sprint_start_time)
-            rows = curs.execute("SELECT * FROM sprints WHERE start_datetime = '{}'".format(sprint_start_time))
-            if rows:
-                print rows.arraysize
+            curs.execute("SELECT * FROM sprints WHERE start_datetime = '{}'".format(sprint_start_time))
+            data = curs.fetchall()
+            print data
+            
             # print "INSERT INTO sprints (start_datetime, end_datetime, rotations) " \
             #       "VALUES ({}, {}, {})".format(sprint_start_time, sprint_end_time, rotations)
 
