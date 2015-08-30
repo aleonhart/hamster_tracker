@@ -9,8 +9,6 @@ michelle@tinwhiskers.net
 """
 
 
-import httplib
-import urllib
 import os
 import time
 import sqlite3
@@ -42,18 +40,9 @@ for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
                 rotations = rotations + 1
                 sprint_end_time = line[:-1]
 
-        # do this agg work elsewhere
-        # human_feet = rotations * WHEEL_CIRCUMFERENCE_INCHES / INCHES_PER_FOOT
-        # human_miles = human_feet / FEET_PER_MILE
-
         try:
-            # print "SELECT * FROM sprints WHERE start_datetime = '{}';".format(sprint_start_time)
-            # curs.execute("SELECT * FROM sprints WHERE start_datetime = '{}';".format(sprint_start_time))
-            # data = curs.fetchone()
-
             # write line to table if it does not already exist
-            # !(timestamp fields expected to be unique)
-            # if not data:
+            # !relying on uniqueness of timestamps to ensure rerunnability
             print "INSERT OR IGNORE INTO sprints VALUES ('{}', '{}', {});".format(sprint_start_time, sprint_end_time, rotations)
 
             curs.execute('INSERT OR IGNORE INTO sprints(start_datetime, end_datetime, rotations) VALUES(?,?,?)',
@@ -62,7 +51,7 @@ for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
             print "commit"
             conn.commit()
 
-            # move the file to the processed folder
+            # move the file to the processed folder  -- this is off during debug
             # os.rename(data_dir + raw_data_file, processed_data_dir + raw_data_file)
             time.sleep(1)
 
