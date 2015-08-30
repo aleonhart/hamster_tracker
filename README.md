@@ -13,7 +13,6 @@ My hamster wheel is modded with a VCR head for two reasons:
 1. The ballbearings that are designed to play a video tape smoothly allow for relatively frictionless (and therefor
 nearly silent) rotation. Silence is golden when living with nocturnal pets who supposedly run nightly marathons on their
 wheel.
-
 2. The VCR head has an axel which can reach through the wires of the cage and attach to the wheel. This is important because
 it means I can mount the VCR head itself on the outside of the cage, allowing me to attach it to other objects safely outside
 of my hamsters' reach.
