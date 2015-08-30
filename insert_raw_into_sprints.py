@@ -23,13 +23,16 @@ WHEEL_CIRCUMFERENCE_INCHES = 18.0
 INCHES_PER_FOOT = 12.0
 FEET_PER_MILE = 5280.0
 
-conn=sqlite3.connect('hamstrometer.db')
-curs=conn.cursor()
+conn = sqlite3.connect('hamstrometer.db')
+curs = conn.cursor()
 
+# process each file of raw sprint data into the sprints database
 for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
     if raw_data_file.startswith('raw_'):
         sprint_start_time = None
         sprint_end_time = None
+
+        # calculate number of rotations in the sprint
         with open(data_dir + raw_data_file) as f:
             rotations = 0
             for line in f:
@@ -39,25 +42,27 @@ for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
                 rotations = rotations + 1
                 sprint_end_time = line[:-1]
 
-        human_feet = rotations * WHEEL_CIRCUMFERENCE_INCHES / INCHES_PER_FOOT
-        human_miles = human_feet / FEET_PER_MILE
+        # do this agg work elsewhere
+        # human_feet = rotations * WHEEL_CIRCUMFERENCE_INCHES / INCHES_PER_FOOT
+        # human_miles = human_feet / FEET_PER_MILE
 
         try:
-            print "Verify that data does not already exist in table..."
-            print "SELECT * FROM sprints WHERE start_datetime = '{}';".format(sprint_start_time)
-            curs.execute("SELECT * FROM sprints WHERE start_datetime = '{}';".format(sprint_start_time))
-            print "fetch"
-            data = curs.fetchone()
+            # print "SELECT * FROM sprints WHERE start_datetime = '{}';".format(sprint_start_time)
+            # curs.execute("SELECT * FROM sprints WHERE start_datetime = '{}';".format(sprint_start_time))
+            # data = curs.fetchone()
 
-            if not data:
-                print "INSERT INTO sprints VALUES ('{}', '{}', {});".format(sprint_start_time, sprint_end_time, rotations)
+            # write line to table if it does not already exist
+            # !(timestamp fields expected to be unique)
+            # if not data:
+            print "INSERT OR IGNORE INTO sprints VALUES ('{}', '{}', {});".format(sprint_start_time, sprint_end_time, rotations)
 
-                print "execute"
-                curs.execute('INSERT INTO sprints(start_datetime, end_datetime, rotations) VALUES(?,?,?)',
-                             (sprint_start_time, sprint_end_time, rotations))
+            curs.execute('INSERT OR IGNORE INTO sprints(start_datetime, end_datetime, rotations) VALUES(?,?,?)',
+                         (sprint_start_time, sprint_end_time, rotations))
 
-                print "commit"
-                conn.commit()
+            print "commit"
+            conn.commit()
+
+            # move the file to the processed folder
             # os.rename(data_dir + raw_data_file, processed_data_dir + raw_data_file)
             time.sleep(1)
 
