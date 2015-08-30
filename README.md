@@ -43,7 +43,7 @@ hamstrometer.db
 
 ### Sprints
 Columns  | Description | Example
-------------- | -------------
+------------- | ------------- | -------------
 start_datetime  | Datetime of the first recorded rotation in the sprint | 2015-07-11 12:34:56.123456
 end_datetime  | Datetime of the last recorded rotation in the sprint | 2015-07-11 01:23:45.123456
 rotations | Number of recorded rotations in the sprint | 7
