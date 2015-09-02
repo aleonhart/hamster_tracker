@@ -2,6 +2,8 @@
 ###Raspberry Pi Powered Hamster Pedometer
 ####Michelle Leonhart | www.tinwhiskers.net
 
+License: [GPL](http://opensource.org/licenses/GPL-3.0)
+
 [The Internet](https://en.wikipedia.org/wiki/Roborovski_hamster) claims that Roborovski hamsters (the breed I own)
 run "an equivalent of four human marathons each night on average".
 
