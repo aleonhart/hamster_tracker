@@ -29,6 +29,8 @@ FEET_PER_MILE = 5280.0
 # TODO calculate rotations per second for each sprint
 # omega = rotations / (end_time - start_time)
 
+
+
 for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
     if raw_data_file.startswith('raw_'):
         sprint_start_time = None
