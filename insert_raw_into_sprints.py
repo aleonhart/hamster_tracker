@@ -15,7 +15,9 @@ import sqlite3
 
 
 # api_key = ''
+# data_dir = '/Users/catlandia/code/hamster_tracker/data/'
 data_dir = '/home/pi/Desktop/hamster_tracker/data/'
+# processed_data_dir = '/Users/catlandia/code/hamster_tracker/data/processed_files/'
 processed_data_dir = '/home/pi/Desktop/hamster_tracker/data/processed_files/'
 WHEEL_CIRCUMFERENCE_INCHES = 18.0
 INCHES_PER_FOOT = 12.0
@@ -25,11 +27,12 @@ conn = sqlite3.connect('hamstrometer.db')
 curs = conn.cursor()
 
 # process each file of raw sprint data into the sprints database
-for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
+for raw_data_file in os.listdir(data_dir):
     if raw_data_file.startswith('raw_'):
         sprint_start_time = None
         sprint_end_time = None
 
+        print "Processing: %s" % raw_data_file
         # calculate number of rotations in the sprint
         with open(data_dir + raw_data_file) as f:
             rotations = 0
@@ -43,22 +46,23 @@ for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
         try:
             # write line to table if it does not already exist
             # !relying on uniqueness of timestamps to ensure rerunnability
-            print "INSERT OR IGNORE INTO sprints VALUES ('{}', '{}', {});".format(sprint_start_time, sprint_end_time, rotations)
+            print "INSERT INTO sprints VALUES ('{}', '{}', {});".format(sprint_start_time, sprint_end_time, rotations)
 
-            curs.execute('INSERT OR IGNORE INTO sprints(start_datetime, end_datetime, rotations) VALUES(?,?,?)',
+            curs.execute('INSERT INTO sprints (start_datetime, end_datetime, rotations) VALUES(?,?,?)',
                          (sprint_start_time, sprint_end_time, rotations))
 
-            print "commit"
             conn.commit()
+
+            # DEBUG
+            # curs.execute('select * from sprints;')
+            # print curs.fetchall()
 
             # move the file to the processed folder  -- this is off during debug
             # os.rename(data_dir + raw_data_file, processed_data_dir + raw_data_file)
             time.sleep(1)
 
         except Exception as e:
-            print e
-            if conn:
-                conn.close()
+            print "EXCEPTION: %s" % e
 
 conn.close()
 
