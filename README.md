@@ -57,6 +57,6 @@ collect and process the data.
 This project uses a SQLite DB called "hamstrometer.db", and a table called "sprints" which is created using create_table_sprints.sql.
 
 ### Data Collection
-insert_raw_into_sprints.py collects data and writes it to raw files on the Raspberry Pi.  
-process_and_send_data.py sends data to ThingSpeak (optional)  
-hamster_tracker.py saves data to the local SQLite database
+- insert_raw_into_sprints.py collects data and writes it to raw files on the Raspberry Pi.  
+- process_and_send_data.py sends data to ThingSpeak (optional)  
+- hamster_tracker.py saves data to the local SQLite database
