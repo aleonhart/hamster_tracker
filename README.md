@@ -53,10 +53,14 @@ you are new to building circuits, I suggest you try hamster_board_3.png, because
 The code that runs the Hamstrometer is not flashy or fancy at all. It is just a few scripts that work together to 
 collect and process the data.
 
-### Initial Database Setup
-This project uses a SQLite DB called "hamstrometer.db", and a table called "sprints" which is created using create_table_sprints.sql.
+### collect_data.py
+This script is meant to be left running continuously. This script is what records your hamster data as they get on and 
+off of the wheel. It should be left running whenever you want to track activity.  
 
-### Data Collection
-- insert_raw_into_sprints.py collects data and writes it to raw files on the Raspberry Pi.  
-- process_and_send_data.py sends data to ThingSpeak (optional)  
-- hamster_tracker.py saves data to the local SQLite database
+Activity from this script will be written to data/1_data_live as it is processing a sprint.  
+Activity from this script will be written to data/2_data_ready once the sprint is over.
+
+### send_data_to_thingspeak.py
+This step is optional. It's only needed if you'd like to send your data somewhere. This script is meant to run asynchronously on a set interval. I recommend setting it to run once every few hours in a cron.  
+
+This script will read the data in the files in data/2_data_ready and will send them to ThingSpeak. Once the data from the file is sent successfully, the file will be moved to data/2_data_processed.
