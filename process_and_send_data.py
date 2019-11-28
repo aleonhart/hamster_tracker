@@ -1,11 +1,9 @@
 """
 Processes data and uploads it to ThingSpeak.
+
 Intended to be run as a cron job every X minutes.
 Looks for all files in raw_data_dir, and moves them
 to processed_data_dir after processing.
-
-Michelle Leonhart
-michelle@tinwhiskers.net
 """
 
 

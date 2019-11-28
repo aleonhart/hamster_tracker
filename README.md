@@ -1,53 +1,62 @@
-#Hamstrometer
-###Raspberry Pi Powered Hamster Pedometer
-####Michelle Leonhart | www.tinwhiskers.net
+# The Hamstrometer
+This repository contains the code and circuit schematics for [the Hamstrometer](https://tinwhiskers.net/post/hamstrometer), a
+Raspberry Pi Powered Hamster Pedometer.
 
-License: [GPL](http://opensource.org/licenses/GPL-3.0)
+# Press
+This project was featured in 
+- [Raspberry Pi Geek Magazine](https://tinwhiskers.net/post/hamster_mag) 
+- [OpenSource.com](https://opensource.com/life/15/10/tracking-hamster-activity-raspberry-pi)
+- [HackaDay](https://hackaday.com/2015/11/02/tracking-the-hamster-marathon/)
 
+# Backstory
 [The Internet](https://en.wikipedia.org/wiki/Roborovski_hamster) claims that Roborovski hamsters (the breed I own)
 run "an equivalent of four human marathons each night on average".
 
-This repo is part of a project to determine if my two pet hamsters -- Hamtaro and Hamtaro Grande -- can hold their own
-against this claim.  Here's how it works:
+This repo is part of a silly scientific project to determine if my two pet hamsters -- Hamtaro and Hamtaro Grande -- can hold their own
+against this claim. 
 
-## Mod the Hamster Wheel to Allow for Safe Tracking
-My hamster wheel is modded with a VCR head for two reasons:
-1. The ballbearings that are designed to play a video tape smoothly allow for relatively frictionless (and therefor
-nearly silent) rotation. Silence is golden when living with nocturnal pets who supposedly run nightly marathons on their
-wheel.
-2. The VCR head has an axel which can reach through the wires of the cage and attach to the wheel. This is important because
-it means I can mount the VCR head itself on the outside of the cage, allowing me to attach it to other objects safely outside
-of my hamsters' reach.
+# Attribution
+## License
+This project is licensed under the [GNU General Public License (GPLv3)](https://www.gnu.org/licenses/quick-guide-gplv3.html):
 
-## Build a System to Collect Data
-(Link to Fritzing diagram)
-* Raspberry Pi
-* Hall Effect Sensor
-* Rare-earth magnet
-* Other misc circuitry
-* Ethernet Connection or w/e
+> Developers who write software can release it under the terms of the GNU GPL. When they do, it will be free software and stay free software, no matter who changes or distributes the program. We call this copyleft: the software is copyrighted, but instead of using those rights to restrict users like proprietary software does, we use them to ensure that every user has freedom.
 
-## ETL Code
-Extract, Transform, Load
-Re-runnability
+## Shout Outs and Citations
+I appreciate citations and shout outs and recommend following [MIT's Code Citation Standards](http://integrity.mit.edu/handbook/writing-code). Please attribute code to Alex Leonhart, [www.tinwhiskers.net](https://www.tinwhiskers.net), when possible. 
 
-## Track Data Over Time
-tl;dr My hamsters are lazy
+That being said, one of the many joys of releasing open source code is seeing others use it in their own work.  
+If you use my code in your project, I'd love to hear about it! Please email me at alexleonhartcode@gmail.com and show me what you made!  
 
-#Data Structure
-## Database Type
-SQLite
+Thank you to icon-library.net for <a href="https://icon-library.net/icon/anonymous-tumblr-icon-17.html" rel="noopener">Anonymous Tumblr Icon #390821</a>!  
 
-##Database
-hamstrometer.db
+## Questions
+I try my best to respond to all emails I get about my work and how to use it. If you're struggling with using something 
+in your own project, send me an email to alexleonhartcode@gmail.com and I'll try to help you out.  
 
-##Tables
+### Students
+I frequently receive emails about this project from engineering students who are trying to learn how to make similar projects, 
+and from science students who are hoping to use a similar design to gather data for their work. I love hearing from 
+students and will try to help you if I can, but I have to be realistic about my schedule. Please give ample time before 
+your deadline.
 
-### Sprints
-Columns  | Description | Example
-------------- | ------------- | -------------
-start_datetime  | Datetime of the first recorded rotation in the sprint | 2015-07-11 12:34:56.123456
-end_datetime  | Datetime of the last recorded rotation in the sprint | 2015-07-11 01:23:45.123456
-rotations | Number of recorded rotations in the sprint | 7
+# How to Build Your Own
+I recommend reading [the full blog post](https://tinwhiskers.net/post/hamstrometer) to understand the physical project setup. 
 
+## The [Fritzing](https://fritzing.org/) Files
+The "fritzing" folder contains several different views for the circuit setup. Pick the one that works the best for you. If 
+you are new to building circuits, I suggest you try hamster_board_3.png, because it is the simplest setup.
+- hamster_board_1.png (Advanced) is a traditional circuit board layout, useful if you plan to have a real circuit board printed
+- hamster_board_2.png (Intermediate) is a breadboard layout for use with a ribbon cable
+- hamster_board_3.png (Simplest) is a breadboard layout for use with individual wires
 
+## The Python Files
+The code that runs the Hamstrometer is not flashy or fancy at all. It is just a few scripts that work together to 
+collect and process the data.
+
+### Initial Database Setup
+This project uses a SQLite DB called "hamstrometer.db", and a table called "sprints" which is created using create_table_sprints.sql.
+
+### Data Collection
+insert_raw_into_sprints.py collects data and writes it to raw files on the Raspberry Pi.  
+process_and_send_data.py sends data to ThingSpeak (optional)  
+hamster_tracker.py saves data to the local SQLite database

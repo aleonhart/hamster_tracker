@@ -1,11 +1,9 @@
 """
-Processes data and uploads it to ThingSpeak.
+Processes data and inserts it into our local database
+.
 Intended to be run as a cron job every X minutes.
 Looks for all files in raw_data_dir, and moves them
 to processed_data_dir after processing.
-
-Michelle Leonhart
-michelle@tinwhiskers.net
 """
 
 
@@ -14,10 +12,7 @@ import time
 import sqlite3
 
 
-# api_key = ''
-# data_dir = '/Users/catlandia/code/hamster_tracker/data/'
 data_dir = '/home/pi/Desktop/hamster_tracker/data/'
-# processed_data_dir = '/Users/catlandia/code/hamster_tracker/data/processed_files/'
 processed_data_dir = '/home/pi/Desktop/hamster_tracker/data/processed_files/'
 WHEEL_CIRCUMFERENCE_INCHES = 18.0
 INCHES_PER_FOOT = 12.0

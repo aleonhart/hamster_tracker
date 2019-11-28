@@ -3,9 +3,6 @@
 """
 Listens to sensor input on PIN 18 and logs
 the current time upon signal.
-
-Michelle Leonhart
-michelle@tinwhiskers.net
 """
 
 
