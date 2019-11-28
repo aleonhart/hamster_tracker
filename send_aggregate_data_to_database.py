@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
 Processes data and inserts it into our local database
 .
@@ -12,8 +14,8 @@ import time
 import sqlite3
 
 
-data_dir = '/home/pi/Desktop/hamster_tracker/data/'
-processed_data_dir = '/home/pi/Desktop/hamster_tracker/data/processed_files/'
+data_dir = '/home/pi/Desktop/The_Hamstrometer/data/'
+processed_data_dir = '/home/pi/Desktop/The_Hamstrometer/data/processed_files/'
 WHEEL_CIRCUMFERENCE_INCHES = 18.0
 INCHES_PER_FOOT = 12.0
 FEET_PER_MILE = 5280.0

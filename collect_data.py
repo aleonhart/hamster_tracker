@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 import time
 import os
 
+
 led_pin = 7
 hall_effect_sensor_pin = 18
 

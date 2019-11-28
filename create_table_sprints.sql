@@ -20,7 +20,7 @@ VALUES (value1, value2, value3,...valueN);
 
 
 CREATE TABLE sprints(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY,
     start_datetime DATETIME UNIQUE,
     end_datetime DATETIME UNIQUE,
     rotations INTEGER

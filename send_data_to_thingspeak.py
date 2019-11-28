@@ -14,8 +14,8 @@ import time
 
 
 api_key = ''
-data_dir = '/home/pi/Desktop/hamster_tracker/data/'
-processed_data_dir = '/home/pi/Desktop/hamster_tracker/data/processed_files/'
+data_dir = '/home/pi/Desktop/The_Hamstrometer/data/'
+processed_data_dir = '/home/pi/Desktop/The_Hamstrometer/data/processed_files/'
 WHEEL_CIRCUMFERENCE_INCHES = 18.0
 INCHES_PER_FOOT = 12.0
 FEET_PER_MILE = 5280.0
@@ -29,7 +29,7 @@ FEET_PER_MILE = 5280.0
 
 
 
-for raw_data_file in os.listdir('/home/pi/Desktop/hamster_tracker/data'):
+for raw_data_file in os.listdir(data_dir):
     if raw_data_file.startswith('raw_'):
         sprint_start_time = None
         with open(data_dir + raw_data_file) as f:
